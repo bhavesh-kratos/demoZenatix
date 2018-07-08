@@ -1,0 +1,184 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.exam-header-theme {
+background: rgba(28,28,28,1);
+background: linear-gradient(to top, #434343, #333333, #242424, #161616, #000000);color: white;
+background: -moz-linear-gradient(to top, #434343, #333333, #242424, #161616, #000000);color: white;
+background: -webkit-linear-gradient(to top, #434343, #333333, #242424, #161616, #000000);color: white;
+background: -o-linear-gradient(to top, #434343, #333333, #242424, #161616, #000000);color: white;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c1c1c', endColorstr='#4c4c4c', GradientType=0 );
+color: white;
+}
+
+.exam-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px; 
+}
+
+.exam-footer-theme {
+  background: rgba(28,28,28,1);
+  background: linear-gradient(to bottom, #434343, #333333, #242424, #161616, #000000);color: white;
+  background: -moz-linear-gradient(to bottom, #434343, #333333, #242424, #161616, #000000);color: white;
+  background: -webkit-linear-gradient(to bottom, #434343, #333333, #242424, #161616, #000000);color: white;
+  background: -o-linear-gradient(to bottom, #434343, #333333, #242424, #161616, #000000);color: white;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c1c1c', endColorstr='#4c4c4c', GradientType=0 );
+  color: white;
+  text-align: middle;
+  }
+
+.exam-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50px; 
+}
+
+.question {
+  background: #F5F5F5;
+  min-height: calc(100vh - 110px);
+}
+
+.question .question-header {
+  background: #F0FFFF;
+  color: #0099CC;
+  min-height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.question .question-choice {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.question .question-choices {
+  min-height: 80%;
+}
+
+.question-header-right{
+  margin-right: 0.55em;
+}
+
+@media only screen and (max-width: 768px){
+.question-content {
+  width: 95vw !important;
+}
+.question-actions {
+  display: none;
+}
+
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px){
+  .question-content {
+    width: 90vw !important;
+  }
+}
+
+@media only screen and (min-width: 992px){
+  .question-content {
+    width: 80vw !important;
+  }
+}
+
+.timer {
+  border-color: white;
+  padding: 0.52em;
+  margin-right: 0.5rem;
+  border-radius: .28571429rem;
+}
+
+.timer-background{
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */}
+
+
+.timer .timer-duration{
+  font-size: 0.85rem;
+}
+
+.timer .timer-counter{
+  font-size: 20pt;
+  font-weight: bold;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.traverse-button {
+  background: #0099CC;
+}
