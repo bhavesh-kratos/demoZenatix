@@ -116,10 +116,10 @@ class ExamScreen extends Component {
         return (
             <Fragment>
                 {/* {JSON.stringify(this.props.examData)} */}
-                <div className="exam-header-theme exam-header exam-header-sticky"><span className="hamburger" ><button className="sidebar-controls" onClick={this.handleButtonClick}><Icon name={visible ? 'close' : 'content'} size="large" /></button><span className="title-name">DEMO APP</span></span> {examData && <Timer switchExamStatus={this.endExam} />}</div>
+                <div className="exam-header-theme exam-header exam-header-sticky"><div className="hamburger" ><button className="sidebar-controls" onClick={this.handleButtonClick}><Icon name={visible ? 'close' : 'content'} size="large" /></button><span className="title-name">DEMO APP</span></div> {examData && <Timer switchExamStatus={this.endExam} />}</div>
                 <div className="exam-content">
                     {examData && (<Sidebar visible={visible} examData={examData} handleSidebarClick={this.handleButtonClick} handleSidebarHide={this.handleSidebarHide} switchQuestion={this.switchQuestion} {...{ reviewQuestions, attemptedQuestions }}>
-                        <QuestionComponent questionIndex={this.state.presentQuestionIndex} key={this.state.presentQuestionIndex} showEndConfirm={this.showEndConfirm} clearChoice={clearChoice} selectChoice={selectChoice} reviewQuestion={this.reviewQuestion} reviewArray={this.state.reviewQuestions} iconVisible={!visible}/>
+                        <QuestionComponent questionIndex={this.state.presentQuestionIndex} key={this.state.presentQuestionIndex} showEndConfirm={this.showEndConfirm} clearChoice={clearChoice} selectChoice={selectChoice} reviewQuestion={this.reviewQuestion} reviewArray={this.state.reviewQuestions} iconSize={!visible}/>
                     </Sidebar>)}
                 </div>
                 <div className="exam-footer-theme exam-footer">

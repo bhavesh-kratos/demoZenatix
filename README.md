@@ -9,6 +9,7 @@ Assumptions:
 4. In your dropBox file you have to keep the header contents same as specified in example file althought you can edit or add more content to excel sheet. But the type of data for each respective header(key) should be same. Example: you can add as many diferent type sections in excel sheets but one section each row as specified in example data.  
 5. Name of the sections will be short maximum 10-12 characters long. 
 6. User can't traverse from one route to another directly only way to it happens is by entering the link on address bar or by app itself as per the events.
+7. As of now it covers only happy cases in provided data. So the input of data has to be the same way.
 
 Known Bugs but couldn't fix due to lack of time:
 1. While debugging ui if you resize the viewport, you may find some abnormalities happening there, its becuase how the sidebar and the content in page gets repositioned when sidebar opens. To fix it refresh the screen for current view size. (./src/components/ExamScreen/Sidebar)   

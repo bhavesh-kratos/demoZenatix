@@ -16,7 +16,7 @@ const AppSidebar = (props) => {
     }
     let dataBySection = groupedBySection(examData);
     const Question = ({ question, index }) => {
-        return (<List.Item style={{ cursor: 'pointer' }} key={`${question.id}+${question.name}`} onClick={() => onClickHandler(index)}>
+        return (<List.Item style={{ cursor: 'pointer' }} onClick={() => onClickHandler(index)}>
             <List.Content >
                 <List.Header><LinesEllipsis
                     text={`Q${findIndexInArray(examData, question.id)+1}. ${question.Question}`}
@@ -29,8 +29,8 @@ const AppSidebar = (props) => {
             </List.Content>
             <br />
             <List.Content>
-                {isAttempted(question.id) ? <Icon name="check" size='small' className="check-icon" /> : ''}
-                {reviewQuestions.includes(question.id) ? <Icon name="edit outline " size='small' className="review-icon" /> : ''}
+                {isAttempted(question.id) ? <Icon name="check" size='large' className="check-icon" /> : ''}
+                {reviewQuestions.includes(question.id) ? <Icon name="edit outline " size='large' className="review-icon" /> : ''}
             </List.Content>
         </List.Item>)
     };
@@ -53,12 +53,12 @@ const AppSidebar = (props) => {
                     {
                         dataBySection.map((data, index) => {
                             return (
-                                <List.Item key={data.section} className="section-custom">
+                                <List.Item key={data.section} bulleted className="section-custom">
                                     <List.Content>
                                         <List.Header className="list-section">{data.section}</List.Header>
                                         <List relaxed='very' divided selection animated>
                                             {data.questions.map(
-                                                (question, index) => <Question key={question.id} question={question} index={index} />
+                                                (question, index) => <Question key={`${question.id}+${question.name}`} question={question} index={index} />
                                             )}
                                         </List>
                                     </List.Content>
