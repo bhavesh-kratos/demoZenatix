@@ -6,8 +6,6 @@ body {
 }
 html {
   background: lightgrey;
-  height: 100%;
-  overflow: hidden;
 }
 
 @media only screen and (min-width: 768px){
