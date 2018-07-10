@@ -46,7 +46,6 @@ export const groupedBySection = (examData) => {
     if (typeof examData === 'undefined' || examData === null) {
         return null;
     }
-    console.log(uniqueSections);
     //questions grouped based on sections
     return uniqueSections(examData).map(section => {
         return {

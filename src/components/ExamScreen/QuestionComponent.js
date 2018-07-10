@@ -21,24 +21,25 @@ class QuestionComponent extends Component {
 
     render() {
         const { value } = this.state;
-        const { questionIndex, question, reviewArray } = this.props;
+        const { questionIndex, question, reviewArray, iconSize } = this.props;
         let choiceLabels = ['a', 'b', 'c', 'd'];
         if (typeof question !== 'undefined' && question !== null) {
             return (
                 <div className="question">
-                    <div className="question-header">
+                    <div className="ui sticky question-header">
                         <span className="question-section">Section: {question.Section.toUpperCase()}</span>
                         <span className="question-header-right">
                             <span>{question.marks} marks</span>&nbsp;
-                            <Button.Group compact inverted size="tiny" color="blue" >
+                            <Button.Group compact inverted size={iconSize ? "tiny": "small"} color="blue" >
                                 <Button className="tooltip" style={{ color: `${reviewArray.includes(question.id) ? '#DAA520' : ''}` }} onClick={() => this.props.reviewQuestion(question.id)}><Icon name={`edit ${reviewArray.includes(question.id) ? '' : 'outline'}`} /><span className="tooltiptext">Review Later</span> </Button>
                                 <Button className="tooltip" onClick={() => this.clearChoice(question.id)}><Icon name="trash alternate" /><span className="tooltiptext">Clear Response</span> </Button>
                                 <Button className="tooltip" onClick={() => this.props.showEndConfirm(false)}><Icon name="close" /><span className="tooltiptext">End Test</span> </Button>
                             </Button.Group>
                         </span>
                     </div>
+                    <div className="question-container">
                     <Card raised centered className="question-content">
-                        <Card.Content textAlign='left' header={`Q${questionIndex + 1}. ${question.Question}`} />
+                        <Card.Content textAlign='left' className="question-question" header={`Q${questionIndex + 1}. ${question.Question}`} />
                         <Card.Content textAlign='left' className="question-choices">
                             <Form.Group>
                                 {
@@ -54,6 +55,7 @@ class QuestionComponent extends Component {
                             </Form.Group>
                         </Card.Content>
                     </Card>
+                    </div>
                 </div>
             );
         }

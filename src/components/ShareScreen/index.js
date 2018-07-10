@@ -10,15 +10,21 @@ class ShareScreen extends React.Component {
         super(props);
         this.state = { base64Image: null };
         this.chartRef = React.createRef();
+        this.downloadImage = React.createRef();
     }
 
     componentDidMount() {
-        const { scores } = this.props;
+        const { scores, shareImage } = this.props;
         if (scores !== null) {
             let ctx = this.chartRef.current.getContext('2d');
+            ctx.fillStyle = "blue";
+            let downloader = this.downloadImage.current;
 
-            function completed() {
+            function completed(generatedChart) {
+                console.log('generated', generatedChart);
                 base64Image = chart.toBase64Image();
+                downloader.href = base64Image;
+                // shareImage
             }
 
             chart = new Chart(ctx, {
@@ -59,7 +65,7 @@ class ShareScreen extends React.Component {
                 <Header {...{ picture, name, logout }} />
                 <div className="result">RESULT</div>
                 <div className="graph">
-                    <canvas ref={this.chartRef} height="300" width="600"/>
+                    <canvas ref={this.chartRef} height="300" width="600" />
                 </div>
                 <div className="score-total">{`Your total score is ${totalScore}`}</div>
                 <div>
@@ -67,7 +73,7 @@ class ShareScreen extends React.Component {
                         <i className="facebook icon"></i>
                         Share
                     </button>
-                    <a href={base64Image} className="ui button inverted" download="scores.png"> <i class="download icon"></i> Download</a></div>
+                    <a ref={this.downloadImage} className="ui button inverted" download="scores.png"> <i class="download icon"></i> Download</a></div>
             </div>
         );
     }

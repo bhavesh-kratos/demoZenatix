@@ -23,7 +23,7 @@ export const getCurrentQuestion = createSelector(
         // return questions[index];
     }
 );
-// TODO: Code above will be cleaned up once, question is passed from parent component
+// TODO: Clean code; Code above will be cleaned up once, question is passed from parent component
 const getAttemptedQuestions = state => state.examState.attempted_questions;
 
 export const getSelectedChoice = createSelector(

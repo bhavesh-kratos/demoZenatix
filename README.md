@@ -15,14 +15,16 @@ Known Bugs but couldn't fix due to lack of time:
 2. In Ui part, inside the test sceen header the question action-icons(on right side) are not properly scaled as per the device.
 
 UnknowBugs:
-1. Downloading the chart and uploading to a host like imgur is not being done dues to some problem in base64 image generated through chart.js api.
+1. Uploading to a host like imgur is not being done dues to some problem in base64 image generated through chart.js api. Although it can be downloaded on system
 
-incomplete features:
-1. Ui fixes are still pending like adding Sections on the list in sidebar and showing finish button at the end question.
-
+incomplete fixes:
+1. fixing some bits of ui for smaller devices is incomplete like keeping question header in exam which has actions to it, to be fixed.
 Config:
 The configuration can be updated by changing values at './src/config/config'. 
 Note: This project entirely depends on facebook to provide data(it slows down the app while starting the app) about whether user is authenticated or not on page refresh if you want to keep the user logged in, if he has authorized his credential set AUTO_LOGIN = true, else change it to false.
 
 
+NOTE: 
+1. Sidebar has knowinly set less that device width for lesser size devices than desktop, so that user can close them by clicking on right sided empty space. 
+2. All the css is located at ./src/App.css and ./src/index.css
 As of now code requires some refactoring and debugging.
