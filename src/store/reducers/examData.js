@@ -1,4 +1,5 @@
 import { fetchExamData } from '../../actions/routines';
+import { LOGOUT_USER } from '../../actions/actionTypes';
 
 const initialState = {
     data: null,
@@ -28,6 +29,8 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             };
+        case LOGOUT_USER:
+            return { ...initialState };
         default:
             return state;
     }

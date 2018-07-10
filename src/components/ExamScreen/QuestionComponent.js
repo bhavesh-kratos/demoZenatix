@@ -8,7 +8,7 @@ class QuestionComponent extends Component {
         super(props);
         this.state = { value: props.selectedChoice };
     }
-    clearChoice(id){
+    clearChoice(id) {
         this.setState({
             value: ''
         })
@@ -30,10 +30,10 @@ class QuestionComponent extends Component {
                         <span className="question-section">Section: {question.Section.toUpperCase()}</span>
                         <span className="question-header-right">
                             <span>{question.marks} marks</span>&nbsp;
-                            <Button.Group size="tiny" className="question-actions-desktop">
-                                <Button className={`tooltip`} style={{color: `${reviewArray.includes(question.id)? '#DAA520': ''}`}} onClick={() => this.props.reviewQuestion(question.id)}><Icon name="edit outline" /><span className="tooltiptext">Review Later</span> </Button>
+                            <Button.Group compact inverted size="tiny" color="blue" >
+                                <Button className="tooltip" style={{ color: `${reviewArray.includes(question.id) ? '#DAA520' : ''}` }} onClick={() => this.props.reviewQuestion(question.id)}><Icon name={`edit ${reviewArray.includes(question.id) ? '' : 'outline'}`} /><span className="tooltiptext">Review Later</span> </Button>
                                 <Button className="tooltip" onClick={() => this.clearChoice(question.id)}><Icon name="trash alternate" /><span className="tooltiptext">Clear Response</span> </Button>
-                                <Button className="tooltip" onClick={() => this.props.switchExamStatus(false)}><Icon name="close" /><span className="tooltiptext">End Test</span> </Button>
+                                <Button className="tooltip" onClick={() => this.props.showEndConfirm(false)}><Icon name="close" /><span className="tooltiptext">End Test</span> </Button>
                             </Button.Group>
                         </span>
                     </div>

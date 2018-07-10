@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchExamData, nextQuestion, previousQuestion, switchExamStatus, clearChoice, selectChoice } from '../../actions/routines';
-import { Icon, Button } from 'semantic-ui-react';
+import { Icon, Button, Confirm } from 'semantic-ui-react';
 import QuestionComponent from './QuestionComponent';
 import Timer from './Timer';
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
 
 const findIndexInArray = (arr, questionId) => {
     let index = arr.findIndex(x => x.id === questionId);
@@ -19,7 +19,7 @@ class ExamScreen extends Component {
     constructor(props) {
         super(props);
         //present_question is the question at which user is in given array of questions
-        this.state = { visible: mql.matches, presentQuestionIndex: 0, reviewQuestions: [], totalQuestions: props.totalQuestions, error: props.error }; // TODO: move presenquestioN TO REdux and create action
+        this.state = { visible: mql.matches, endConfirm: false, presentQuestionIndex: 0, reviewQuestions: [], totalQuestions: props.totalQuestions, error: props.error }; // TODO: move presenquestioN TO REdux and create action
         this.previousQuestion = this.previousQuestion.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
         this.switchQuestion = this.switchQuestion.bind(this);
@@ -30,6 +30,7 @@ class ExamScreen extends Component {
     componentDidMount() {
         this.props.fetchExamData();
     }
+
 
     // used for review 
     switchQuestion(index) {
@@ -54,9 +55,10 @@ class ExamScreen extends Component {
             });
         }
     }
-    endExam(data) {
+
+    endExam() {
         console.log('his', this.props);
-        this.props.switchExamStatus(data);
+        this.props.switchExamStatus(false);
         this.props.history.push('/score');
     }
 
@@ -94,6 +96,11 @@ class ExamScreen extends Component {
             });
         }
     }
+    showEndConfirm = () => this.setState({ endConfirm: true })
+
+    handleEndConfirm = () => { this.setState({ endConfirm: false }); this.endExam(); }
+
+    handleEndCancel = () => this.setState({ endConfirm: false })
 
     handleButtonClick = () => this.setState({ visible: !this.state.visible })
 
@@ -116,10 +123,10 @@ class ExamScreen extends Component {
         return (
             <Fragment>
                 {/* {JSON.stringify(this.props.examData)} */}
-                <div className="exam-header-theme exam-header"><span className="hamburger" onClick={this.handleButtonClick}><Icon name='content' size="large" /></span> <Timer switchExamStatus={this.props.switchExamStatus} /></div>
+                <div className="exam-header-theme exam-header"><span className="hamburger" onClick={this.handleButtonClick}><Icon name={visible ? 'close' : 'content'} size="large" /><span className="title-name">DEMO APP</span></span> {examData && <Timer switchExamStatus={this.props.switchExamStatus} />}</div>
                 <div className="exam-content">
                     {examData && (<Sidebar visible={visible} examData={examData} handleSidebarClick={this.handleButtonClick} handleSidebarHide={this.handleSidebarHide} switchQuestion={this.switchQuestion} {...{ reviewQuestions, attemptedQuestions }}>
-                        <QuestionComponent questionIndex={this.state.presentQuestionIndex} key={this.state.presentQuestionIndex} switchExamStatus={this.endExam} clearChoice={clearChoice} selectChoice={selectChoice} reviewQuestion={this.reviewQuestion} reviewArray={this.state.reviewQuestions} />
+                        <QuestionComponent questionIndex={this.state.presentQuestionIndex} key={this.state.presentQuestionIndex} showEndConfirm={this.showEndConfirm} clearChoice={clearChoice} selectChoice={selectChoice} reviewQuestion={this.reviewQuestion} reviewArray={this.state.reviewQuestions} />
                     </Sidebar>)}
                 </div>
                 <div className="exam-footer-theme exam-footer">
@@ -128,6 +135,12 @@ class ExamScreen extends Component {
                         <Button className="traverse-button" labelPosition='right' icon='right chevron' content='Next' onClick={this.nextQuestion} />
                     </Button.Group>
                 </div>
+                <Confirm
+                    open={this.state.endConfirm}
+                    content='Are you sure about ending the exam?'
+                    onCancel={this.handleEndCancel}
+                    onConfirm={this.handleEndConfirm}
+                />
             </Fragment>
         );
     }

@@ -4,6 +4,7 @@ import FacebookLogin from 'react-facebook-login';
 import { connect } from 'react-redux';
 import { login } from '../../actions/routines';
 import { AUTO_LOGIN, FB_APPID } from '../../config/config';
+import Loader from '../common/Loader';
 
 class LoginScreen extends Component {
 

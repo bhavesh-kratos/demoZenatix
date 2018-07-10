@@ -1,5 +1,5 @@
 import { fetchExamData } from '../../actions/routines';
-import { SWITCH_EXAM_STATUS, SELECTED_CHOICE, CLEAR_CHOICE, CALCULATE_SCORE } from '../../actions/actionTypes';
+import { SWITCH_EXAM_STATUS, SELECTED_CHOICE, CLEAR_CHOICE, CALCULATE_SCORE, LOGOUT_USER } from '../../actions/actionTypes';
 
 const initialState = {
     attempted_questions: null,   //object id: choice
@@ -28,12 +28,14 @@ const reducer = (state = initialState, action) => {
                 can_attempt: action.payload
             };
         case CALCULATE_SCORE:
-        console.log('tota',action.payload.total)
+            console.log('tota', action.payload.total)
             return {
                 ...state,
                 total_score: action.payload.total,
                 section_score: action.payload.individual
             };
+        case LOGOUT_USER:
+            return { ...initialState };
         default:
             return state;
     }

@@ -8,7 +8,7 @@ const Header = ({ picture, name, logout }) => {
             {picture && <Image src={picture.data.url} avatar />}
             <span className="display-name">{name ? name : 'Demo App'}</span>
         </div>
-        {logout && <Button size="small" className="traverse-button" onClick={() => logout()}>Logout</Button>}
+        {logout && <Button size="medium" className="logout" onClick={() => logout()}>Logout</Button>}
     </div>
 }
 Header.defaultProps = { picture: null, name: null, logout: null };

@@ -92,11 +92,20 @@ color: white;
 .app-header{
   position: fixed;
   top: 0px;
+  left: 0px;
+  padding: 0;
 }
+.title-name{
+    font-size: 1.14em;
+    font-weight: bold;
+    margin-left: 0.3em;
+}
+
 .display-name{
-  font-size: 1.34rem;
+  font-size: 1.34em;
   font-weight: bold;
-  margin-left: 0.6rem;
+  margin-left: 0.6em;
+  line-height: 1.37em;
 }
 .exam-header {
   display: flex;
@@ -120,6 +129,7 @@ color: white;
 .exam-footer {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -161,9 +171,13 @@ color: white;
   margin-right: 0.56em;
 }
 
+.question-content{
+  margin: 0 1em; 
+}
 @media only screen and (max-width: 768px){
 .question-content {
   width: 95vw !important;
+  
 }
 .question-actions {
   display: none;
@@ -183,6 +197,9 @@ color: white;
   }
 }
 
+.logout{
+  color: white !important;
+}
 .timer {
   border-color: white;
   padding: 0.52em;
@@ -190,11 +207,11 @@ color: white;
   border-radius: .28571429rem;
 }
 
-.timer-background{
-  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */}
+.timer-background, .logout{
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%) !important; /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) !important; /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ) !important; /* IE6-9 */}
 
 
 .timer .timer-duration{
@@ -361,13 +378,33 @@ background: -o-linear-gradient(to right top, #93a5cf, #94bcd6, #a7cfd9, #c4e0dd,
 .result{
   font-size: 1.86em;
   margin-bottom: 1em;
+  margin-top: calc(60px + 0.537em);
 }
 .score-total{
  font-size: 1.567em;
  margin-top: 1em;
+ margin-bottom: 0.34em;
 }
 .result,.score-total{
   color: white; 
   font-weight: bolder;
 }
 
+/* .hamburger {
+  color: white;
+  font-size: 2em;
+  display: block;
+  margin: 15% auto;
+  width: 45px;
+  transition: transform .3s ease;
+  transform-origin: 25% 50%;
+}
+.hamburger:before {
+  content: "\2630";
+}
+.hamburger.hamburger-close {
+  transform: rotate(-180deg);
+}
+.hamburger.hamburger-close:before {
+  content: "\2715";
+} */
