@@ -50,12 +50,12 @@ const AppSidebar = (props) => {
                     {
                         dataBySection.map((data, index) => {
                             return (
-                                <List.Item className="section-custom">
+                                <List.Item key={data.section} className="section-custom">
                                     <List.Content>
                                         <List.Header className="list-section">{data.section}</List.Header>
                                         <List relaxed='very' divided selection animated>
                                             {data.questions.map(
-                                                (question, index) => <Question question={question} index={index} />
+                                                (question, index) => <Question key={question.id} question={question} index={index} />
                                             )}
                                         </List>
                                     </List.Content>
