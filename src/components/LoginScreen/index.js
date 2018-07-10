@@ -5,13 +5,19 @@ import { connect } from 'react-redux';
 import { login } from '../../actions/routines';
 import { AUTO_LOGIN, FB_APPID } from '../../config/config';
 import Loader from '../common/Loader';
+import { loading } from '../../actions/routines';
 
 class LoginScreen extends Component {
-
+    // constructor(props) {
+    //     super(props);
+    // }
+    // componentDidMount() {
+    //     this.props.loading(true);
+    // }
     responseFacebook = (response) => {
         console.log('ere', response, this.props);
+        this.props.loading(false);
         if (typeof response !== 'undefined' && response !== null && response.accessToken !== null && response.name) {
-            console.log('response', this.props);
             this.props.login(response);
         }
     }
@@ -20,6 +26,7 @@ class LoginScreen extends Component {
         return (
             <div className="score-screen">
                 <Header />
+                {/* {this.props.loading && <Loader />} */}
                 <FacebookLogin
                     appId={FB_APPID}
                     autoLoad={AUTO_LOGIN}
@@ -33,5 +40,10 @@ class LoginScreen extends Component {
         )
     }
 }
+// function mapStateToProps(state) {
+//     return {
+//         loading: state.userData.loading
+//     };
+// }
 
-export default connect(null, { login })(LoginScreen);
+export default connect(null, { login, loading })(LoginScreen);

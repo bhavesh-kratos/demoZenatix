@@ -4,11 +4,11 @@ import Chart from 'chart.js';
 import Header from '../common/Header';
 import { logout, shareImage } from '../../actions/routines';
 
-var chart;
+var chart, base64Image; // they don't need to be changed for ui updates, created once
 class ShareScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {base64Image: null};
+        this.state = { base64Image: null };
         this.chartRef = React.createRef();
     }
 
@@ -16,6 +16,11 @@ class ShareScreen extends React.Component {
         const { scores } = this.props;
         if (scores !== null) {
             let ctx = this.chartRef.current.getContext('2d');
+
+            function completed() {
+                base64Image = chart.toBase64Image();
+            }
+
             chart = new Chart(ctx, {
                 // The type of chart we want to create
                 type: 'bar',
@@ -32,15 +37,19 @@ class ShareScreen extends React.Component {
                 // Configuration options go here
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    bezierCurve: false,
+                    animation: {
+                        onComplete: completed  /// calls function done() {} at end
+                    }
                 }
             });
-            
+
         }
     }
 
-    shareImageT = () => {
-        this.props.shareImage(chart);
+    shareImage64 = () => {
+        this.props.shareImage(base64Image);
     }
     render() {
         let { userData, logout, totalScore, shareImage } = this.props;
@@ -50,15 +59,15 @@ class ShareScreen extends React.Component {
                 <Header {...{ picture, name, logout }} />
                 <div className="result">RESULT</div>
                 <div className="graph">
-                    <canvas ref={this.chartRef} height="300.6px" />
+                    <canvas ref={this.chartRef} height="300" width="600"/>
                 </div>
                 <div className="score-total">{`Your total score is ${totalScore}`}</div>
                 <div>
-                <button className="ui facebook button score-total" onClick={() => this.shareImageT()}>
-                    <i className="facebook icon"></i>
-                    Share
-                </button>
-                <a href={this.state.base64Image} className="ui button inverted" download="scores.png"> <i class="download icon"></i> Download</a></div>
+                    <button className="ui facebook button score-total" onClick={() => this.shareImage64()}>
+                        <i className="facebook icon"></i>
+                        Share
+                    </button>
+                    <a href={base64Image} className="ui button inverted" download="scores.png"> <i class="download icon"></i> Download</a></div>
             </div>
         );
     }

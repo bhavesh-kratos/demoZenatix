@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => {
+const PrivateRoute = ({ isAuthenticated, hasGivenExam, component: Component, ...rest }) => {
   console.log('isauthen', isAuthenticated);
   return (
     <Route
@@ -12,8 +12,8 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => {
         isAuthenticated ? (
           <Component {...props} {...rest} />
         ) : (
-          <Redirect to={'/login'} />
-        )
+            <Redirect to={'/login'} /> //hasGivenExam ? <Redirect to={'/score'} /> : <Redirect to={'/'} />
+          )
       }
     />
   );
@@ -26,7 +26,8 @@ PrivateRoute.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: !!state.userData.user_data
+    isAuthenticated: !!state.userData.user_data,
+    hasGivenExam: !state.examState.can_attempt
   };
 }
 

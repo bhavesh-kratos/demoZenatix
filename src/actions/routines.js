@@ -21,3 +21,6 @@ export const calculateScore = (score) => { return { type: actionTypes.CALCULATE_
 // login
 export const login = (data) => { return { type: actionTypes.LOGIN_USER, payload: data }; };
 export const logout = (data) => { return { type: actionTypes.LOGOUT_USER }; };
+
+//
+export const loading = (data) => { return { type: actionTypes.LOADING, payload: data}; };
