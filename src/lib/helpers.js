@@ -40,6 +40,14 @@ let getDataFromFileReader = (fileBlob) => new Promise(resolve => {
     fileReader.readAsArrayBuffer(fileBlob);
 });
 
+export const findIndexInArray = (arr, questionId) => {
+    let index = arr.findIndex(x => x.id === questionId);
+    if (index === -1) {
+        console.log('Not possible. Programmatical Bug exists.')
+    }
+    return index;
+}
+
 const uniqueSections = (examData) => [...new Set(examData.map(item => item.Section))];
 
 export const groupedBySection = (examData) => {

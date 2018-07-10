@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Header, Icon, Image, List, Segment, Divider, Sidebar } from 'semantic-ui-react'
 import LinesEllipsis from 'react-lines-ellipsis'
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
-import { groupedBySection } from '../../lib/helpers';
+import { groupedBySection, findIndexInArray } from '../../lib/helpers';
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
 const mql = window.matchMedia(`(min-width: 800px)`);
@@ -15,22 +15,25 @@ const AppSidebar = (props) => {
         handleSidebarHide();
     }
     let dataBySection = groupedBySection(examData);
-    const Question = ({ question, index }) => (<List.Item style={{ cursor: 'pointer' }} key={`${question.id}+${question.name}`} className="list-custom-item" onClick={() => onClickHandler(index)}>
-        <List.Content >
-            <List.Header><LinesEllipsis
-                text={`Q${index + 1}. ${question.Question}`}
-                maxLine='2'
-                ellipsis='...'
-                trimRight
-                basedOn='letters'
-            /></List.Header>
-        </List.Content>
-        <br />
-        <List.Content>
-            {isAttempted(question.id) ? <Icon name="check" size='small' className="check-icon" /> : ''}
-            {reviewQuestions.includes(question.id) ? <Icon name="edit outline " size='small' className="review-icon" /> : ''}
-        </List.Content>
-    </List.Item>);
+    const Question = ({ question, index }) => {
+        return (<List.Item style={{ cursor: 'pointer' }} key={`${question.id}+${question.name}`} onClick={() => onClickHandler(index)}>
+            <List.Content >
+                <List.Header><LinesEllipsis
+                    text={`Q${findIndexInArray(examData, question.id)+1}. ${question.Question}`}
+                    maxLine='2'
+                    ellipsis='...'
+                    trimRight
+                    basedOn='letters'
+                    className="list-custom-item"
+                /></List.Header>
+            </List.Content>
+            <br />
+            <List.Content>
+                {isAttempted(question.id) ? <Icon name="check" size='small' className="check-icon" /> : ''}
+                {reviewQuestions.includes(question.id) ? <Icon name="edit outline " size='small' className="review-icon" /> : ''}
+            </List.Content>
+        </List.Item>)
+    };
 
     console.log('valuesss', dataBySection)
     return (<div>

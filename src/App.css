@@ -145,7 +145,7 @@ color: white;
   font-family: averta-semibold !important;
   align-items: center;
   height: 60px; 
-  z-index: 2000;
+  z-index: 2500;
 }
 
 .exam-footer-theme {
@@ -250,6 +250,7 @@ color: white;
 .timer {
   border-color: white;
   padding: 0.52em;
+  width: 9em;
   margin-right: 0.5rem;
   border-radius: .28571429rem;
 }
@@ -303,9 +304,10 @@ color: white;
   border-style: solid;
   border-color: transparent transparent black transparent;
 }
-
+@media only screen and (min-width: 800px) {
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
 }
 
 .traverse-button {
@@ -362,7 +364,9 @@ color: white;
 } */
 
 .hamburger{
-  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hamburger::before{
@@ -447,23 +451,34 @@ background: -o-linear-gradient(to right top, #93a5cf, #94bcd6, #a7cfd9, #c4e0dd,
 
 .list-section{
   background: #F5F5F5;
-  font-family: averta-bold !important;
   border-bottom: 0.23em solid  #F5F5F5;
   padding-top: 0.89em;
   padding-bottom: 0.89em; 
+  font-family: averta-bold !important;
+  font-size: 1.166em;
 }
+
 .list-section:nth-last-child(1) {
   margin-bottom: 0;
 }
 
 .list-custom-item{
   font-family: averta-thin !important;
+  font-size: 1.087em;
 }
 
 .sidebar {
   padding-top: 0.23em;
 }
-
+.sidebar-controls{
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  color: white;
+}
 /* .hamburger {
   color: white;
   font-size: 2em;
