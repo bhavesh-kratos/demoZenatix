@@ -54,7 +54,7 @@ class Timer extends Component {
         // Check if its at zero.
         if (remainingTime === 0) {
             clearInterval(this.timer);
-            this.props.switchExamStatus();
+            this.props.switchExamStatus(false);
         }
     }
 

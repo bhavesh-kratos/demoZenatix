@@ -13,7 +13,7 @@ html {
 @media only screen and (min-width: 768px){
 
 body::-webkit-scrollbar {
-    width: 0.61em;
+    width: 0.31em;
 }
  
 body::-webkit-scrollbar-track {
