@@ -10,6 +10,8 @@ html {
   overflow: hidden;
 }
 
+@media only screen and (min-width: 768px){
+
 body::-webkit-scrollbar {
     width: 0.61em;
 }
@@ -21,4 +23,5 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
 }
