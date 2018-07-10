@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchExamData, nextQuestion, previousQuestion, switchExamStatus } from '../../actions/routines';
+import { fetchExamData, nextQuestion, previousQuestion, switchExamStatus, clearChoice, selectChoice } from '../../actions/routines';
 import { Icon, Button } from 'semantic-ui-react';
 import QuestionComponent from './QuestionComponent';
 import Timer from './Timer';
+import Sidebar from './sidebar';
 
 const findIndexInArray = (arr, questionId) => {
     let index = arr.findIndex(x => x.id === questionId);
@@ -12,27 +13,53 @@ const findIndexInArray = (arr, questionId) => {
     }
     return arr[index];
 }
+const mql = window.matchMedia(`(min-width: 800px)`);
 
 class ExamScreen extends Component {
     constructor(props) {
         super(props);
         //present_question is the question at which user is in given array of questions
-        this.state = { presentQuestionIndex: 0, reviewQuestions: [], totalQuestions: props.totalQuestions, error: props.error }; // TODO: move presenquestioN TO REdux and create action
+        this.state = { visible: mql.matches, presentQuestionIndex: 0, reviewQuestions: [], totalQuestions: props.totalQuestions, error: props.error }; // TODO: move presenquestioN TO REdux and create action
         this.previousQuestion = this.previousQuestion.bind(this);
         this.nextQuestion = this.nextQuestion.bind(this);
         this.switchQuestion = this.switchQuestion.bind(this);
+        this.reviewQuestion = this.reviewQuestion.bind(this);
+        this.endExam = this.endExam.bind(this);
     }
 
     componentDidMount() {
         this.props.fetchExamData();
     }
 
-
-    switchQuestion(id) {
+    // used for review 
+    switchQuestion(index) {
         this.setState({
-            presentQuestionIndex: id
+            presentQuestionIndex: index
         });
     }
+
+    reviewQuestion(id) {
+        if (this.state.reviewQuestions.includes(id)) {
+            this.setState(prevState => ({
+                reviewQuestions: prevState.reviewQuestions.filter(val => val !== id)
+            }), function () {
+                console.log(this.state.reviewQuestions)
+            });
+        }
+        else {
+            this.setState(prevState => ({
+                reviewQuestions: [...prevState.reviewQuestions, id]
+            }), function () {
+                console.log(this.state.reviewQuestions)
+            });
+        }
+    }
+    endExam(data) {
+        console.log('his', this.props);
+        this.props.switchExamStatus(data);
+        this.props.history.push('/score');
+    }
+
     //TODO: change the logic for traversing
     previousQuestion() {
         let index = this.state.presentQuestionIndex;
@@ -68,33 +95,40 @@ class ExamScreen extends Component {
         }
     }
 
+    handleButtonClick = () => this.setState({ visible: !this.state.visible })
+
+    handleSidebarHide = () => {
+        if (!mql.matches) {
+            this.setState({ visible: false })
+        }
+    }
+
     render() {
-        console.log(this.state.presentQuestionIndex);
-        let { error } = this.state;
-        if (error) {
+        let { error, visible, reviewQuestions } = this.state;
+        const { selectChoice, clearChoice, switchExamStatus, examData, attemptedQuestions } = this.props;
+        if (error || this.props.error) {
             <div>
-                Some Error occured probablynetwork error. Try reloading the page.
+                Some Error occured probably network error. Try reloading the page.
                 <br />
                 {error}
             </div>
         }
-        else if(!this.props.canAttempt){
-            return <div>Can't attempt again</div>
-        }
         return (
-            <div>
+            <Fragment>
                 {/* {JSON.stringify(this.props.examData)} */}
-                <div className="exam-header-theme exam-header"><b>EXAM NAME</b> <Timer switchExamStatus={this.props.switchExamStatus} /></div>
-                <div>
-                    <QuestionComponent questionIndex={this.state.presentQuestionIndex} key={this.state.presentQuestionIndex} switchExamStatus={this.props.switchExamStatus} />
+                <div className="exam-header-theme exam-header"><span className="hamburger" onClick={this.handleButtonClick}><Icon name='content' size="large" /></span> <Timer switchExamStatus={this.props.switchExamStatus} /></div>
+                <div className="exam-content">
+                    {examData && (<Sidebar visible={visible} examData={examData} handleSidebarClick={this.handleButtonClick} handleSidebarHide={this.handleSidebarHide} switchQuestion={this.switchQuestion} {...{ reviewQuestions, attemptedQuestions }}>
+                        <QuestionComponent questionIndex={this.state.presentQuestionIndex} key={this.state.presentQuestionIndex} switchExamStatus={this.endExam} clearChoice={clearChoice} selectChoice={selectChoice} reviewQuestion={this.reviewQuestion} reviewArray={this.state.reviewQuestions} />
+                    </Sidebar>)}
                 </div>
                 <div className="exam-footer-theme exam-footer">
-                    <Button.Group primary size="large">
-                        <Button labelPosition='left' icon='left chevron' content='Previous' onClick={this.previousQuestion} />
-                        <Button labelPosition='right' icon='right chevron' content='Next' onClick={this.nextQuestion} />
+                    <Button.Group primary size="large" >
+                        <Button className="traverse-button" labelPosition='left' icon='left chevron' content='Previous' onClick={this.previousQuestion} />
+                        <Button className="traverse-button" labelPosition='right' icon='right chevron' content='Next' onClick={this.nextQuestion} />
                     </Button.Group>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
@@ -106,10 +140,12 @@ function mapStateToProps(state) {
         totalQuestions: state.examData.total_questions,
         loading: state.examData.loading,
         error: state.examData.error,
-        canAttempt: state.examState.can_attempt
+        canAttempt: state.examState.can_attempt,
+        attemptedQuestions: state.examState.attempted_questions,
+        score: state.examState.user_score
     };
 }
 
 export default connect(
-    mapStateToProps, { fetchExamData, nextQuestion, previousQuestion, switchExamStatus }
+    mapStateToProps, { fetchExamData, switchExamStatus, selectChoice, clearChoice }
 )(ExamScreen);

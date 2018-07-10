@@ -12,7 +12,7 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => {
         isAuthenticated ? (
           <Component {...props} {...rest} />
         ) : (
-          <Redirect to={'/signin'} />
+          <Redirect to={'/login'} />
         )
       }
     />
@@ -25,9 +25,8 @@ PrivateRoute.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log('ads', state.auth);
   return {
-    isAuthenticated: !!state.auth.auth_token
+    isAuthenticated: !!state.userData.user_data
   };
 }
 

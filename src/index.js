@@ -6,9 +6,10 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store';
+// import { createBrowserHistory } from 'history';
 
 
-
+// export const history = createBrowserHistory({basename: '/'});
 const store = configureStore();
 
 // const authToken = localStorage.getItem('auth_token');
@@ -35,7 +36,7 @@ const store = configureStore();
 //     })
 //   );
 // }
-
+{/* <Router history={history}> */ }
 const app = (
   <Provider store={store}>
     <BrowserRouter basename={'/'}>

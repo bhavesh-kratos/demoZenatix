@@ -33,6 +33,10 @@ class Timer extends Component {
         this.startTimer()
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
     startTimer() {
         if (this.timer === 0) {
             this.timer = setInterval(this.countDown, 1000);

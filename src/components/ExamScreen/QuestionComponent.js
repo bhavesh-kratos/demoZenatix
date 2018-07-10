@@ -1,27 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCurrentQuestion } from '../../selectors/examSelector';
+import { getCurrentQuestion, getSelectedChoice } from '../../selectors/examSelector';
 import { Card, Icon, Button, Grid, Form, Radio } from 'semantic-ui-react';
 
 class QuestionComponent extends Component {
-    state = {};
-    handleChange = (e, { value }) => this.setState({ value })
+    constructor(props) {
+        super(props);
+        this.state = { value: props.selectedChoice };
+    }
+    clearChoice(id){
+        this.setState({
+            value: ''
+        })
+        this.props.clearChoice(id);
+    }
+    handleChange = (e, { value }) => {
+        this.props.selectChoice(this.props.question.id, value);
+        this.setState({ value });
+    }
 
     render() {
         const { value } = this.state;
-        const { questionIndex, question } = this.props;
+        const { questionIndex, question, reviewArray } = this.props;
         let choiceLabels = ['a', 'b', 'c', 'd'];
         if (typeof question !== 'undefined' && question !== null) {
             return (
                 <div className="question">
                     <div className="question-header">
-                        <span>Section: {question.Section.toUpperCase()}</span>
+                        <span className="question-section">Section: {question.Section.toUpperCase()}</span>
                         <span className="question-header-right">
                             <span>{question.marks} marks</span>&nbsp;
-                            <Button.Group className="question-actions-desktop">
-                                <Button className="tooltip" ><Icon name="edit outline" /><span class="tooltiptext">Review Later</span> </Button>
-                                <Button className="tooltip" ><Icon name="trash alternate" /><span class="tooltiptext">Clear Response</span> </Button>
-                                <Button className="tooltip" onClick={() => this.props.switchExamStatus(false)}><Icon name="close" /><span class="tooltiptext">End Test</span> </Button>
+                            <Button.Group size="tiny" className="question-actions-desktop">
+                                <Button className={`tooltip`} style={{color: `${reviewArray.includes(question.id)? '#DAA520': ''}`}} onClick={() => this.props.reviewQuestion(question.id)}><Icon name="edit outline" /><span className="tooltiptext">Review Later</span> </Button>
+                                <Button className="tooltip" onClick={() => this.clearChoice(question.id)}><Icon name="trash alternate" /><span className="tooltiptext">Clear Response</span> </Button>
+                                <Button className="tooltip" onClick={() => this.props.switchExamStatus(false)}><Icon name="close" /><span className="tooltiptext">End Test</span> </Button>
                             </Button.Group>
                         </span>
                     </div>
@@ -53,6 +65,7 @@ class QuestionComponent extends Component {
 function mapStateToProps(state, ownProps) {
     return {
         question: getCurrentQuestion(state, ownProps.questionIndex),
+        selectedChoice: getSelectedChoice(state, ownProps.questionIndex)
     };
 }
 

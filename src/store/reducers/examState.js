@@ -1,22 +1,38 @@
 import { fetchExamData } from '../../actions/routines';
-import { SWITCH_EXAM_STATUS } from '../../actions/actionTypes';
+import { SWITCH_EXAM_STATUS, SELECTED_CHOICE, CLEAR_CHOICE, CALCULATE_SCORE } from '../../actions/actionTypes';
 
 const initialState = {
-    attempted_questions: [],
-    can_attempt: true
+    attempted_questions: null,   //object id: choice
+    can_attempt: true,
+    total_score: null,
+    section_score: null  //object section: score
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        // case fetchExamData.TRIGGER:
-        //     return {
-        //         ...state,
-        //         attempted_questions: action.payload,
-        //     };
+        case SELECTED_CHOICE:
+            console.log('attempted_questions', state.attempted_questions);
+            return {
+                ...state,
+                attempted_questions: { ...state['attempted_questions'], ...action.payload },
+            };
+        case CLEAR_CHOICE:
+            console.log('attempted_questions', state.attempted_questions);
+            return {
+                ...state,
+                attempted_questions: { ...state['attempted_questions'], ...action.payload },
+            };
         case SWITCH_EXAM_STATUS:
             return {
                 ...state,
                 can_attempt: action.payload
+            };
+        case CALCULATE_SCORE:
+        console.log('tota',action.payload.total)
+            return {
+                ...state,
+                total_score: action.payload.total,
+                section_score: action.payload.individual
             };
         default:
             return state;

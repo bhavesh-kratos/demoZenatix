@@ -23,3 +23,23 @@ export const getCurrentQuestion = createSelector(
         // return questions[index];
     }
 );
+// TODO: Code above will be cleaned up once, question is passed from parent component
+const getAttemptedQuestions = state => state.examState.attempted_questions;
+
+export const getSelectedChoice = createSelector(
+    [getSectionQuestions, getAttemptedQuestions],
+    (sectionQuestions, attemptedQuestions) => {
+        let { questions } = sectionQuestions;
+        let index = sectionQuestions.question_index;
+
+        if (typeof questions === 'undefined' || questions === null) {
+            return null;
+        }
+        // checking if user's response(choice) for given response is present in array
+        else if (attemptedQuestions !== null && attemptedQuestions.hasOwnProperty(questions[index].id)) {
+            return attemptedQuestions[questions[index].id];
+        }
+        return null;
+    }
+);
+

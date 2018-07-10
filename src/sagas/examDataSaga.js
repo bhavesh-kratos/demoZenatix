@@ -19,7 +19,7 @@ function* examDataSaga(action) {
 }
 
 /* WATCHER SAGA */
-export default function* watchImages() {
+export default function* watchExamData() {
     // run fetchDataFromServer on every trigger action
     yield takeLatest(fetchExamData.TRIGGER, examDataSaga);
 }

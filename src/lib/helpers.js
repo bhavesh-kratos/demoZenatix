@@ -40,14 +40,15 @@ let getDataFromFileReader = (fileBlob) => new Promise(resolve => {
     fileReader.readAsArrayBuffer(fileBlob);
 });
 
+const uniqueSections = (examData) => [...new Set(examData.map(item => item.Section))];
+
 export const groupedBySection = (examData) => {
     if (typeof examData === 'undefined' || examData === null) {
         return null;
     }
-    let uniqueSections = [...new Set(examData.map(item => item.Section))];
     console.log(uniqueSections);
     //questions grouped based on sections
-    return uniqueSections.map(section => {
+    return uniqueSections(examData).map(section => {
         return {
             'section': section,
             'questions': examData.filter(value => value.Section === section)
@@ -66,6 +67,52 @@ export const sortBySection = (examData) => {
     });
 }
 
+// TODO: Remove this method and references
 export const previousQuestion = (id, examData) => {
-    return 
+    return null;
 }
+
+// return element in array of object for given id
+const findElementInArray = (arr, questionId) => {
+    // Assuming ids are integers always
+    let index = arr.findIndex(x => parseInt(x.id, 10) === parseInt(questionId, 10));
+    console.log('answer to', arr[index])
+    if (index === -1) {
+        console.log('Not possible. Programmatical Bug exists.')
+    }
+    return arr[index];
+}
+
+// questions: questions data, responses: object question_id: choice  
+export const computeScore = (questions, responses) => {
+    if (responses === null) {
+        return 0;
+    }
+    let attemptedQuestions = Object.keys(responses);
+    return attemptedQuestions.reduce((acc, questionId) => {
+        let question = findElementInArray(questions, questionId);
+        if (responses['questionId'] !== null && question["correct answer"] === responses[questionId]) {
+            return acc + parseInt(question["marks"], 10);
+        }
+        return acc;
+    }, 0);
+}
+
+// return object section: score
+export const computeIndividualScore = (questions, responses) => {
+    if (responses === null) {
+        return 0;
+    }
+    let uniqSections = uniqueSections(questions);
+    uniqSections = uniqSections.reduce((acc, value) => ({ ...acc, ...{ [value]: 0 } }), {});
+    let attemptedQuestions = Object.keys(responses);
+    return attemptedQuestions.reduce((acc, questionId) => {
+        let question = findElementInArray(questions, questionId);
+        if (responses['questionId'] !== null && question["correct answer"] === responses[questionId]) {
+            console.log('uiuiu',parseInt(question["marks"], 10));
+            return { ...acc, ...{ [question["Section"]]: (acc[question["Section"]] + parseInt(question["marks"], 10)) } };
+        }
+        return acc;
+    }, uniqSections);
+};
+
