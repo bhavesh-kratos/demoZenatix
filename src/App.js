@@ -13,7 +13,7 @@ const App = () => (
   <div className="App">
     <Switch>
       <PublicRoute exact path ="/login" component={LoginScreen} />  
-      <Route exact path ="/" component={ExamScreen} />  
+      <PrivateRoute exact path ="/" component={ExamScreen} />  
       <PrivateRoute exact path ="/score" component={ShareScreen} />  
     </Switch>
   </div>
