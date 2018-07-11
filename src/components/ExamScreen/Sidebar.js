@@ -16,10 +16,11 @@ const AppSidebar = (props) => {
     }
     let dataBySection = groupedBySection(examData);
     const Question = ({ question, index }) => {
-        return (<List.Item style={{ cursor: 'pointer' }} onClick={() => onClickHandler(index)}>
+        let actualIndex = findIndexInArray(examData, question.id);
+        return (<List.Item style={{ cursor: 'pointer' }} onClick={() => onClickHandler(actualIndex)}>
             <List.Content >
                 <List.Header><LinesEllipsis
-                    text={`Q${findIndexInArray(examData, question.id)+1}. ${question.Question}`}
+                    text={`Q${actualIndex+1}. ${question.Question}`}
                     maxLine='2'
                     ellipsis='...'
                     trimRight
