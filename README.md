@@ -1,6 +1,6 @@
 1. clone the project.  
 2. run npm install && npm start
-
+3. for running in local machine replace the FB_APPID with id that is in comments in './src/config/config.js'
 
 Assumptions:
 1. Its assumed that facebook api will return correct reponse object with same key value pairs as the time of writing this code on authorization, which is used to display user's content.
