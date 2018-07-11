@@ -48,7 +48,7 @@ const AppSidebar = (props) => {
                 vertical
                 visible={visible}
                 width={mql.matches ? 'tiny' : 'wide'}
-                className="sidebar sidebar-width"
+                className="sidebar sidebar-width my-pusher"
             >
                 <List divided>
                     {
@@ -70,7 +70,7 @@ const AppSidebar = (props) => {
                 </List>
             </Sidebar>
 
-            <Sidebar.Pusher className={`my-pusher ${mql.matches ? "self-pusher" : ""}`}>
+            <Sidebar.Pusher className={`${mql.matches ? "self-pusher" : ""}`}>
                 {props.children}
             </Sidebar.Pusher>
         </Sidebar.Pushable>

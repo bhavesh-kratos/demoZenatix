@@ -58,7 +58,9 @@ only screen and (                max-resolution: 192dpi) and (max-width: 800px),
 only screen and (                max-resolution: 2dppx)  and (max-width: 800px) { 
   /* Medium screen, retina, stuff to override above media query */
   /* sidebar  */
-  
+  .my-pusher{
+    width: 98vw !important;
+  }
 }
 
 @media only screen and (min-width: 1300px) {

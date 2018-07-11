@@ -31,7 +31,7 @@ class LoginScreen extends Component {
                     appId={FB_APPID}
                     autoLoad={AUTO_LOGIN}
                     fields="name,email,picture"
-                    scope="public_profile,user_friends,user_posts"
+                    scope="public_profile"
                     callback={this.responseFacebook}
                     icon="facebook"
                     cssClass="ui facebook button"
