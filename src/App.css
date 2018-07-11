@@ -58,9 +58,7 @@ only screen and (                max-resolution: 192dpi) and (max-width: 800px),
 only screen and (                max-resolution: 2dppx)  and (max-width: 800px) { 
   /* Medium screen, retina, stuff to override above media query */
   /* sidebar  */
-  .my-pusher{
-    width: 95vw !important;
-  }
+  
 }
 
 @media only screen and (min-width: 1300px) {
@@ -457,7 +455,7 @@ background: -o-linear-gradient(to right top, #93a5cf, #94bcd6, #a7cfd9, #c4e0dd,
   padding-top: 0.89em;
   padding-bottom: 0.89em; 
   font-family: averta-bold !important;
-  font-size: 1.166em;
+  font-size: 1.166em !important;
 }
 
 .list-section:nth-last-child(1) {
@@ -470,8 +468,8 @@ background: -o-linear-gradient(to right top, #93a5cf, #94bcd6, #a7cfd9, #c4e0dd,
 
 .list-custom-item{
   font-family: averta-thin !important;
-  font-size: 1.237em;
-  font-weight: 500;
+  font-size: 1.237em  !important;
+  font-weight: 500 !important;
 }
 
 .list-section, .list-custom-item{
