@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
   background: #F5F5F5;
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !Important;
 }
 html {
   background: lightgrey;
@@ -22,9 +23,4 @@ body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
-}
-
-*:focus{
-  outline: none;
-  -moz-outline:none;
 }
