@@ -23,3 +23,8 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 }
+
+*:focus{
+  outline: none;
+  -moz-outline:none;
+}
